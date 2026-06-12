@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 多語系口說練習 MVP｜10分鐘體驗</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Noto Sans TC","Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    :root{--bg:#f7f4ef;--card:#fff;--text:#1f2933;--muted:#7b8794;--line:#e7dfd4;--main:#d97706;--main-dark:#92400e;--soft:#fff7ed;--green:#16a34a;--red:#dc2626;--radius:22px;--shadow:0 24px 60px rgba(60,42,25,.12)}
+    body{min-height:100vh;background:radial-gradient(circle at top left,rgba(251,191,36,.25),transparent 32%),radial-gradient(circle at bottom right,rgba(251,146,60,.18),transparent 35%),var(--bg);color:var(--text)}
+    .app{width:min(1180px,92%);margin:auto;padding:34px 0 60px}.nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;gap:18px}.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.5px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#f59e0b,#ea580c);display:grid;place-items:center;color:#fff;box-shadow:0 12px 25px rgba(217,119,6,.3)}
+    select{border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:#fff;font-weight:800;color:var(--main-dark)}.nav-pill{padding:10px 16px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.65);color:var(--muted);font-size:14px;backdrop-filter:blur(10px)}
+    .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:stretch}.panel{background:rgba(255,255,255,.82);border:1px solid rgba(231,223,212,.85);border-radius:var(--radius);box-shadow:var(--shadow);backdrop-filter:blur(18px)}.intro{padding:42px;min-height:540px;display:flex;flex-direction:column;justify-content:space-between}
+    .badge{display:inline-flex;align-items:center;gap:8px;width:max-content;background:var(--soft);border:1px solid #fed7aa;color:var(--main-dark);padding:9px 14px;border-radius:999px;font-size:14px;font-weight:700;margin-bottom:18px}h1{font-size:clamp(34px,5vw,58px);line-height:1.08;letter-spacing:-1.8px;margin-bottom:18px}.lead{color:var(--muted);font-size:18px;line-height:1.8;max-width:620px}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px}.feature{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}.feature b{display:block;font-size:15px;margin-bottom:6px}.feature span{color:var(--muted);font-size:13px;line-height:1.5}
+    .start-area{margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}button{border:none;cursor:pointer;transition:.25s ease;font-weight:800}.btn-main{padding:15px 24px;border-radius:16px;color:#fff;background:linear-gradient(135deg,#f59e0b,#ea580c);box-shadow:0 14px 30px rgba(217,119,6,.28)}.btn-main:hover{transform:translateY(-2px)}.btn-ghost{padding:15px 20px;border-radius:16px;color:var(--main-dark);background:#fff7ed;border:1px solid #fed7aa}
+    .trainer{padding:24px;min-height:540px}.timer-card{background:linear-gradient(135deg,#1f2937,#111827);color:#fff;border-radius:24px;padding:24px;margin-bottom:18px;position:relative;overflow:hidden}.timer-card::after{content:"";position:absolute;width:180px;height:180px;background:rgba(245,158,11,.22);border-radius:50%;right:-60px;top:-60px}.timer-top{display:flex;justify-content:space-between;gap:12px;position:relative;z-index:1}.timer{font-size:46px;font-weight:900;letter-spacing:-1px}.status{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 12px;font-size:13px;height:max-content}
+    .progress{width:100%;height:9px;background:rgba(255,255,255,.14);border-radius:999px;margin-top:18px;overflow:hidden;position:relative;z-index:1}.progress-bar{width:0%;height:100%;background:linear-gradient(90deg,#fbbf24,#fb923c);border-radius:999px;transition:.3s}.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;margin-bottom:16px}.card-title{color:var(--muted);font-size:14px;margin-bottom:10px;font-weight:700}.jp-word{font-size:48px;font-weight:900;letter-spacing:2px;margin-bottom:6px}.romaji{color:var(--main-dark);font-weight:800;font-size:18px;margin-bottom:10px}.meaning{color:var(--muted);line-height:1.7}.controls{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.record-btn{background:#111827;color:#fff;padding:15px;border-radius:16px}.record-btn.recording{background:var(--red);animation:pulse 1s infinite}@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(220,38,38,.35)}70%{box-shadow:0 0 0 14px rgba(220,38,38,0)}100%{box-shadow:0 0 0 0 rgba(220,38,38,0)}}.next-btn{background:var(--soft);color:var(--main-dark);border:1px solid #fed7aa;padding:15px;border-radius:16px}
+    .score-box{display:grid;grid-template-columns:110px 1fr;gap:18px;align-items:center}.score-circle{width:110px;height:110px;border-radius:50%;background:conic-gradient(var(--main) 0deg,#f3eadf 0deg);display:grid;place-items:center;position:relative}.score-circle::after{content:"";width:82px;height:82px;background:#fff;border-radius:50%;position:absolute}.score-num{position:relative;z-index:1;font-size:30px;font-weight:900;color:var(--main-dark)}.feedback h3{margin-bottom:8px}.feedback p{color:var(--muted);line-height:1.75;font-size:15px}.transcript{margin-top:10px;padding:12px;background:#faf7f2;border:1px solid var(--line);border-radius:14px;color:var(--muted);font-size:14px;line-height:1.7}.log-list{display:flex;flex-direction:column;gap:10px;max-height:180px;overflow:auto;padding-right:4px}.log-item{display:flex;justify-content:space-between;gap:12px;padding:12px;background:#faf7f2;border:1px solid var(--line);border-radius:14px;font-size:14px}.log-item strong{color:var(--main-dark)}.empty{color:var(--muted);font-size:14px;line-height:1.7}.hidden{display:none!important}.modal{position:fixed;inset:0;background:rgba(17,24,39,.5);display:grid;place-items:center;padding:20px;z-index:20;backdrop-filter:blur(6px)}.modal-box{width:min(460px,100%);background:#fff;border-radius:26px;padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.2);text-align:center}.modal-box h2{font-size:28px;margin-bottom:10px}.modal-box p{color:var(--muted);line-height:1.8;margin-bottom:18px}
+    @media(max-width:900px){.hero{grid-template-columns:1fr}.intro,.trainer{min-height:auto}.features{grid-template-columns:1fr}}@media(max-width:560px){.nav{align-items:flex-start;flex-direction:column}.brand{flex-wrap:wrap}.intro{padding:26px}.jp-word{font-size:40px}.timer{font-size:38px}.score-box{grid-template-columns:1fr;text-align:center}.score-circle{margin:auto}.controls{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <nav class="nav">
+      <div class="brand"><div class="logo">話</div><div>AI Speaking Coach<br><small style="color:#7b8794;font-weight:600;">10分鐘口說練習 MVP</small></div>
+        <select id="languageSelect"><option value="ja">🇯🇵 日本語</option><option value="en">🇺🇸 English</option><option value="ko">🇰🇷 한국어</option><option value="es">🇪🇸 Español</option></select>
+      </div>
+      <div class="nav-pill">Web Demo｜無需 App｜適合初學者</div>
+    </nav>
+
+    <section class="hero">
+      <div class="panel intro">
+        <div>
+          <div class="badge">🎧 AI 發音信心訓練</div>
+          <h1 id="heroTitle">10分鐘多語系口說練習，讓初學者敢開口。</h1>
+          <p class="lead">透過字卡、錄音、Whisper 語音辨識、GPT 發音評分與修正建議，完成第一階段 MVP 的核心流程。</p>
+          <div class="features">
+            <div class="feature"><b>01 字卡練習</b><span>依語系切換字卡，學生依序朗讀。</span></div>
+            <div class="feature"><b>02 錄音辨識</b><span>瀏覽器錄音後送到 /api/speech 轉文字。</span></div>
+            <div class="feature"><b>03 AI 評分</b><span>送到 /api/feedback 回傳分數與建議。</span></div>
+          </div>
+        </div>
+        <div class="start-area"><button class="btn-main" id="startBtn">開始 10 分鐘體驗</button><button class="btn-ghost" id="resetBtn">重新開始</button></div>
+      </div>
+
+      <div class="panel trainer">
+        <div class="timer-card"><div class="timer-top"><div><div style="opacity:.75;font-size:14px;margin-bottom:6px;">剩餘體驗時間</div><div class="timer" id="timer">10:00</div></div><div class="status" id="status">尚未開始</div></div><div class="progress"><div class="progress-bar" id="progressBar"></div></div></div>
+        <div class="card"><div class="card-title">今日字卡</div><div class="jp-word" id="targetText">こんにちは</div><div class="romaji" id="romaji">konnichiwa</div><p class="meaning" id="meaning">意思：你好。請自然、清楚地唸出來。</p><div class="controls"><button class="record-btn" id="recordBtn">🎙️ 開始錄音</button><button class="next-btn" id="nextBtn">下一張字卡 →</button></div></div>
+        <div class="card"><div class="card-title">AI 發音回饋</div><div class="score-box"><div class="score-circle" id="scoreCircle"><div class="score-num" id="scoreNum">--</div></div><div class="feedback"><h3 id="feedbackTitle">等待練習</h3><p id="feedbackText">點擊「開始錄音」後，系統會錄音、辨識，並提供 AI 評分與修正方向。</p><div class="transcript hidden" id="transcriptBox"></div></div></div></div>
+        <div class="card"><div class="card-title">練習紀錄</div><div class="log-list" id="logList"><p class="empty">目前尚無紀錄。完成錄音後會顯示練習分數。</p></div></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal hidden" id="endModal"><div class="modal-box"><h2>體驗完成 🎉</h2><p id="summaryText">你已完成本次 10 分鐘口說練習。</p><button class="btn-main" id="closeModalBtn">再練一次</button></div></div>
+
+  <script>
+    const cardSets = {
+      ja:[{text:"こんにちは",romaji:"konnichiwa",meaning:"意思：你好。請自然、清楚地唸出來。"},{text:"ありがとう",romaji:"arigatou",meaning:"意思：謝謝。注意長音 ou 的尾音。"},{text:"すみません",romaji:"sumimasen",meaning:"意思：不好意思 / 對不起。適合日常情境。"},{text:"おはよう",romaji:"ohayou",meaning:"意思：早安。注意 ha 與 you 的連接。"},{text:"お願いします",romaji:"onegaishimasu",meaning:"意思：麻煩你 / 請多指教。"}],
+      en:[{text:"Hello",romaji:"heh-low",meaning:"意思：你好。注意 H 開頭氣音。"},{text:"Thank you",romaji:"thank you",meaning:"意思：謝謝。注意 th 的咬舌音。"},{text:"Excuse me",romaji:"ik-skyooz mee",meaning:"意思：不好意思 / 借過。"},{text:"Good morning",romaji:"good mor-ning",meaning:"意思：早安。語尾不要太重。"},{text:"Nice to meet you",romaji:"nice to meet you",meaning:"意思：很高興認識你。"}],
+      ko:[{text:"안녕하세요",romaji:"annyeonghaseyo",meaning:"意思：你好。注意連音自然。"},{text:"감사합니다",romaji:"gamsahamnida",meaning:"意思：謝謝。尾音 nida 要收乾淨。"},{text:"죄송합니다",romaji:"joesonghamnida",meaning:"意思：對不起。"},{text:"좋은 아침이에요",romaji:"joeun achimieyo",meaning:"意思：早安。"},{text:"부탁합니다",romaji:"butakamnida",meaning:"意思：拜託 / 麻煩你。"}],
+      es:[{text:"Hola",romaji:"o-la",meaning:"意思：你好。H 不發音。"},{text:"Gracias",romaji:"gra-syas",meaning:"意思：謝謝。注意 r 與 cias。"},{text:"Perdón",romaji:"per-don",meaning:"意思：不好意思 / 抱歉。"},{text:"Buenos días",romaji:"bwe-nos di-as",meaning:"意思：早安。"},{text:"Mucho gusto",romaji:"mu-cho gus-to",meaning:"意思：很高興認識你。"}]
+    };
+
+    const totalSeconds = 10 * 60;
+    let remainingSeconds = totalSeconds, timerInterval = null, started = false, currentIndex = 0, logs = [], isRecording = false, mediaRecorder = null, audioChunks = [];
+
+    const $ = id => document.getElementById(id);
+    const timerEl=$("timer"), statusEl=$("status"), progressBar=$("progressBar"), startBtn=$("startBtn"), resetBtn=$("resetBtn"), recordBtn=$("recordBtn"), nextBtn=$("nextBtn"), languageSelect=$("languageSelect"), targetTextEl=$("targetText"), romaji=$("romaji"), meaning=$("meaning"), scoreCircle=$("scoreCircle"), scoreNum=$("scoreNum"), feedbackTitle=$("feedbackTitle"), feedbackText=$("feedbackText"), transcriptBox=$("transcriptBox"), logList=$("logList"), endModal=$("endModal"), closeModalBtn=$("closeModalBtn"), summaryText=$("summaryText");
+
+    function currentCards(){return cardSets[languageSelect.value] || cardSets.ja}
+    function formatTime(seconds){return `${String(Math.floor(seconds/60)).padStart(2,"0")}:${String(seconds%60).padStart(2,"0")}`}
+    function updateTimerUI(){timerEl.textContent=formatTime(remainingSeconds);progressBar.style.width=`${Math.min(100,((totalSeconds-remainingSeconds)/totalSeconds)*100)}%`}
+    function startDemo(){if(started)return;started=true;statusEl.textContent="體驗中";timerInterval=setInterval(()=>{remainingSeconds--;updateTimerUI();if(remainingSeconds<=0)endDemo()},1000)}
+    function endDemo(){clearInterval(timerInterval);timerInterval=null;started=false;statusEl.textContent="已結束";const avg=logs.length?Math.round(logs.reduce((s,i)=>s+i.score,0)/logs.length):0;summaryText.textContent=logs.length?`你完成了 ${logs.length} 次練習，平均分數 ${avg} 分。正式版可加入學生紀錄、老師後台與訂閱制。`:"你尚未完成練習，可以重新開始體驗。";endModal.classList.remove("hidden")}
+    function renderCard(){const card=currentCards()[currentIndex] || currentCards()[0];targetTextEl.textContent=card.text;romaji.textContent=card.romaji;meaning.textContent=card.meaning}
+    function resetScore(title="等待練習", text="點擊「開始錄音」後，系統會錄音、辨識，並提供 AI 評分與修正方向。"){scoreNum.textContent="--";scoreCircle.style.background="conic-gradient(var(--main) 0deg,#f3eadf 0deg)";feedbackTitle.textContent=title;feedbackText.textContent=text;transcriptBox.classList.add("hidden");transcriptBox.textContent=""}
+    function resetDemo(){clearInterval(timerInterval);timerInterval=null;remainingSeconds=totalSeconds;started=false;currentIndex=0;logs=[];isRecording=false;recordBtn.textContent="🎙️ 開始錄音";recordBtn.classList.remove("recording");statusEl.textContent="尚未開始";endModal.classList.add("hidden");renderCard();resetScore();renderLogs();updateTimerUI()}
+    function nextCard(){currentIndex=(currentIndex+1)%currentCards().length;renderCard();resetScore("換下一張字卡","請先看字卡內容，再點擊錄音開始練習。")}
+    function renderLogs(){if(!logs.length){logList.innerHTML=`<p class="empty">目前尚無紀錄。完成錄音後會顯示練習分數。</p>`;return}logList.innerHTML=logs.map(item=>`<div class="log-item"><span><strong>${item.text}</strong><br><small>${item.time}</small></span><b>${item.score} 分</b></div>`).join("")}
+
+    async function speechToText(audioBlob, language){
+      const formData = new FormData();
+      formData.append("audio", audioBlob, "recording.webm");
+      formData.append("language", language);
+      const res = await fetch("/api/speech", { method:"POST", body:formData });
+      const data = await res.json();
+      if(!res.ok) throw new Error(data.error || "語音辨識失敗");
+      return data.text || "";
+    }
+
+    async function getAIFeedback(targetText, transcript, language){
+      const res = await fetch("/api/feedback", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({ targetText, transcript, language })
+      });
+      const data = await res.json();
+      if(!res.ok) throw new Error(data.error || "AI 評分失敗");
+      return data;
+    }
+
+    async function analyzeSpeech(audioBlob){
+      const card = currentCards()[currentIndex];
+      statusEl.textContent = "語音辨識中...";
+      feedbackTitle.textContent = "Whisper 辨識中";
+      feedbackText.textContent = "正在將錄音轉成文字，完成後會送出 AI 評分。";
+
+      const transcript = await speechToText(audioBlob, languageSelect.value);
+      transcriptBox.textContent = `辨識結果：${transcript || "未辨識到明確文字"}`;
+      transcriptBox.classList.remove("hidden");
+
+      statusEl.textContent = "AI 評分中...";
+      const aiResult = await getAIFeedback(card.text, transcript, languageSelect.value);
+      const score = Math.max(0, Math.min(100, Number(aiResult.score) || 0));
+
+      scoreNum.textContent = score;
+      scoreCircle.style.background = `conic-gradient(var(--main) ${score * 3.6}deg,#f3eadf 0deg)`;
+      feedbackTitle.textContent = aiResult.feedback || "完成評分";
+      feedbackText.textContent = aiResult.suggestion || "請再練習一次，保持音量穩定並注意音節節奏。";
+
+      logs.unshift({ text:card.text, score, time:new Date().toLocaleTimeString("zh-TW",{hour:"2-digit",minute:"2-digit"}) });
+      renderLogs();
+      statusEl.textContent = "分析完成";
+    }
+
+    async function handleRecord(){
+      if(!started) startDemo();
+
+      if(!navigator.mediaDevices?.getUserMedia){
+        alert("此瀏覽器不支援錄音功能，請改用 Chrome / Edge。");
+        return;
+      }
+
+      if(!isRecording){
+        try{
+          const stream = await navigator.mediaDevices.getUserMedia({ audio:true });
+          audioChunks = [];
+          mediaRecorder = new MediaRecorder(stream);
+          mediaRecorder.ondataavailable = e => { if(e.data.size > 0) audioChunks.push(e.data) };
+          mediaRecorder.onstop = async () => {
+            const audioBlob = new Blob(audioChunks, { type:"audio/webm" });
+            stream.getTracks().forEach(track => track.stop());
+            isRecording = false;
+            recordBtn.textContent = "🎙️ 再錄一次";
+            recordBtn.classList.remove("recording");
+            try{ await analyzeSpeech(audioBlob) }
+            catch(error){
+              console.error(error);
+              statusEl.textContent = "分析失敗";
+              feedbackTitle.textContent = "分析失敗";
+              feedbackText.textContent = error.message || "請確認 API 路由、OPENAI_API_KEY 與網路連線。";
+            }
+          };
+          mediaRecorder.start();
+          isRecording = true;
+          recordBtn.textContent = "⏹️ 停止錄音";
+          recordBtn.classList.add("recording");
+          statusEl.textContent = "錄音中...";
+          resetScore("錄音中","請清楚唸出目前字卡內容，完成後按「停止錄音」。");
+        }catch(error){
+          alert("無法使用麥克風，請確認瀏覽器權限。");
+          console.error(error);
+        }
+      }else{
+        mediaRecorder.stop();
+        statusEl.textContent = "準備分析...";
+      }
+    }
+
+    languageSelect.addEventListener("change",()=>{
+  currentIndex=0;
+  renderCard();
+  resetScore("已切換語系","請按錄音開始新的語系練習。")
+});
+
+    startBtn.addEventListener("click", startDemo);
+    resetBtn.addEventListener("click", resetDemo);
+    recordBtn.addEventListener("click", handleRecord);
+    nextBtn.addEventListener("click", nextCard);
+    closeModalBtn.addEventListener("click", resetDemo);
+    renderCard();updateTimerUI();
+  </script>
+</body>
+</html>
